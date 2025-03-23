@@ -1,5 +1,5 @@
 import React from 'react';
-import AppRoutes from './routes/AppRoutes'; // Import the routing configuration
+import AppRoutes from './routes/AppRoutes';
 import './index.css'; // Import global styles (if you have any, including Tailwind directives)
 
 function App() {

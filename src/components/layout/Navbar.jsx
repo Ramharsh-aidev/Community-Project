@@ -8,10 +8,12 @@ import {
     MagnifyingGlassIcon,
     QuestionMarkCircleIcon
 } from '@heroicons/react/24/outline';
+import { useAuth, SignOutButton } from '@clerk/clerk-react'; // Import useAuth and SignOutButton
 
 function Navbar() {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const dropdownRef = useRef(null);
+    const { isSignedIn } = useAuth(); // Use useAuth to check sign-in status
 
     const toggleDropdown = () => {
         setIsDropdownOpen(!isDropdownOpen);
@@ -40,8 +42,8 @@ function Navbar() {
             <div className="container mx-auto px-6 py-4 flex justify-between items-center">
                 {/* Logo */}
                 <Link to="/" className="flex items-center cursor-pointer">
-                    <img src="/logo.jpeg" alt="Financial AI Logo" className="h-8 mr-2" /> {/* Replace with your logo image in public/images */}
-                    <span className="font-bold text-xl text-blue-600">FinTech</span>
+                    <img src="./logo.jpeg" alt="Financial AI Logo" className="h-8 mr-2" /> {/* Replace with your logo image in public/images */}
+                    <span className="font-bold text-xl text-blue-600">FInTech</span>
                 </Link>
 
                 {/* Navigation Links */}
@@ -78,10 +80,20 @@ function Navbar() {
                     <Link to="/team" className="text-gray-700 hover:text-blue-600 cursor-pointer transition-colors duration-300">Team</Link>
                 </div>
 
-                {/* Auth Buttons */}
+                {/* Auth Buttons - Conditional rendering based on isSignedIn */}
                 <div className="flex items-center space-x-4">
-                    <Link to="/login" className="text-gray-700 hover:text-blue-600 cursor-pointer transition-colors duration-300">Log in</Link>
-                    <Link to="/register" className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-full cursor-pointer transition-colors duration-300">Sign up</Link>
+                    {isSignedIn ? ( // If user is signed in, show SignOutButton
+                        <SignOutButton>
+                            <button className="bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded-full cursor-pointer transition-colors duration-300">
+                                Sign Out
+                            </button>
+                        </SignOutButton>
+                    ) : ( // If user is not signed in, show Log in and Sign up links
+                        <>
+                            <Link to="/sign-in" className="text-gray-700 hover:text-blue-600 cursor-pointer transition-colors duration-300">Log in</Link>
+                            <Link to="/sign-up" className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-full cursor-pointer transition-colors duration-300">Sign up</Link>
+                        </>
+                    )}
                 </div>
             </div>
         </nav>

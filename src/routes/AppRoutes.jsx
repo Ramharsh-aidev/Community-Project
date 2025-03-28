@@ -7,8 +7,8 @@ import HomePage from '../pages/HomePage';
 // import FinancialQuestionResolverPage from '../features/chatAI/pages/FinancialQuestionResolverPage'; // Assuming path, adjust if needed
 // import ShareDataAnalysisPage from '../features/chatAI/pages/ShareDataAnalysisPage';
 // import LiveShareTrackingPage from '../features/dataAnalysis/pages/LiveShareTrackingPage';
-// import PDFRiskAnalysisPage from '../features/pdfRiskAnalysis/pages/PDFRiskAnalysisPage'; 
-// import BudgetPlannerPage from '../features/budgetPlanner/pages/BudgetPlannerPage'; 
+import PDFRiskAnalysisPage from '../pages/PDFRiskAnalysisPage';
+// import BudgetPlannerPage from '../features/budgetPlanner/pages/BudgetPlannerPage';
 import TermsAndConditionsPage from '../pages/TermsAndConditionsPage';
 import AboutPage from '../pages/AboutUs';
 import PrivacyPolicyPage from '../pages/PrivacyPolicyPage';
@@ -42,6 +42,7 @@ function AppRoutes() {
                 <Route path="/about" element={<AboutPage />} />
                 <Route path="/terms-and-conditions" element={<TermsAndConditionsPage />} />
                 <Route path="/policy" element={<PrivacyPolicyPage />} />
+                <Route path="/pdf-risk-analysis" element={<PDFRiskAnalysisPage />} /> {/* PDFRiskAnalysisPage is now a public route */}
                 {/* <Route path="/financial-advice" element={<FinancialQuestionResolverPage />} />  */} {/* Public - if you decide to make it public */}
 
 
@@ -55,11 +56,6 @@ function AppRoutes() {
                 <Route path="/live-tracking" element={
                     <ProtectedRoute>
                         <LiveShareTrackingPage />
-                    </ProtectedRoute>
-                } />
-                <Route path="/pdf-risk-analysis" element={
-                    <ProtectedRoute>
-                        <PDFRiskAnalysisPage />
                     </ProtectedRoute>
                 } />
                 <Route path="/budget-planner" element={

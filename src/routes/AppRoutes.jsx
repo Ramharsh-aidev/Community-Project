@@ -4,7 +4,7 @@ import { Route, Routes, Navigate } from "react-router-dom";
 
 // Import your page components
 import HomePage from "../pages/HomePage";
-import FinancialQuestionResolverPage from "../pages/Chatbot"; // Assuming path, adjust if needed
+import FinancialQuestionResolverPage from "../pages/ChatbotPage"; // Assuming path, adjust if needed
 // import ShareDataAnalysisPage from '../features/chatAI/pages/ShareDataAnalysisPage';
 // import LiveShareTrackingPage from '../features/dataAnalysis/pages/LiveShareTrackingPage';
 import PDFRiskAnalysisPage from '../pages/PDFRiskAnalysisPage';

@@ -1,5 +1,6 @@
+// src/components/layout/ChatInput.jsx
 import React, { useState } from "react";
-import { Send } from "lucide-react"; // Import Send icon from Lucide React
+import { Send } from "lucide-react"; // Import Send icon
 
 const ChatInput = ({ onSendMessage }) => {
   const [message, setMessage] = useState("");
@@ -7,25 +8,34 @@ const ChatInput = ({ onSendMessage }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (message.trim() !== "") {
-      onSendMessage(message);
-      setMessage("");
+      onSendMessage(message); // Call the passed function
+      setMessage(""); // Clear the input
     }
   };
 
   return (
-    <form onSubmit={handleSubmit} className="flex p-4 border-t border-gray-300">
+    // Form structure for input and button
+    <form onSubmit={handleSubmit} className="relative mx-auto flex max-w-xl items-center">
       <input
         type="text"
         value={message}
         onChange={(e) => setMessage(e.target.value)}
-        placeholder="Type your message..."
-        className="flex-grow p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+        placeholder="Send a message..."
+        // Styling for the input field
+        className="flex-grow appearance-none rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-sm shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
       />
       <button
         type="submit"
-        className="ml-2 p-2 bg-blue-500 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        disabled={!message.trim()} // Disable button if input is empty
+        // Styling for the send button (changes based on disabled state)
+        className={`ml-2 inline-flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg border text-sm font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 ${
+          message.trim()
+            ? 'border-transparent bg-indigo-600 text-white shadow-sm hover:bg-indigo-700 focus:ring-indigo-500' // Enabled state
+            : 'border-gray-300 bg-gray-100 text-gray-400 cursor-not-allowed' // Disabled state
+        }`}
       >
         <Send className="h-5 w-5" />
+        <span className="sr-only">Send</span> {/* For screen readers */}
       </button>
     </form>
   );

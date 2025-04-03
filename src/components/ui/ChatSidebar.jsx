@@ -9,7 +9,7 @@ const ChatSidebar = () => {
     <aside className="flex h-full w-64 flex-shrink-0 flex-col border-r border-gray-200 bg-white"> {/* Added flex-shrink-0 */}
       {/* Header */}
       <div className="px-4 py-3 text-lg font-semibold text-gray-800">
-         Galaxy.ai {/* Placeholder name */}
+        FInTech.ai {/* Placeholder name */}
       </div>
 
       {/* Navigation */}

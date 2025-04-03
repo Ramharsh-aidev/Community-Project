@@ -58,10 +58,11 @@ const ChatbotPage = () => {
 
   // Define the suggestion prompts to display initially
   const prompts = [
-    'Experience Seoul like a local',
-    'Quiz me on ancient civilizations',
+    'What is Stock Market?',
+    'How to invest in stocks?',
+    'Explain the concept of ETFs',
     'Summarize a long document',
-    'Create a workout plan',
+   
   ];
 
   return (
@@ -81,7 +82,7 @@ const ChatbotPage = () => {
               {/* Removed logo img tag */}
               {/* <img src={OpenAILogo} alt="Model" className="mr-2 h-4 w-4" /> */}
               <span className="mr-1"> {/* Added span for spacing if needed */}
-                 Dh {/* Placeholder model name */}
+                 Chatbot {/* Placeholder model name */}
               </span>
               <ChevronDown className="ml-1 h-4 w-4 text-gray-500" />
             </button>
@@ -101,7 +102,7 @@ const ChatbotPage = () => {
             <div className="flex h-full flex-col items-center justify-center text-center">
               {/* Removed logo img tag */}
               {/* <img src={OpenAILogo} alt="GPT Logo" className="mb-4 h-12 w-12" /> */}
-              <h1 className="mb-1 text-xl font-medium text-gray-800 mt-12">GPT 4o Mini</h1> {/* Added margin-top */}
+              <h1 className="mb-1 text-xl font-medium text-gray-800 mt-12">FInTech</h1> {/* Added margin-top */}
               <p className="mb-8 text-gray-500">Start a conversation to see responses</p>
               <div className="w-full max-w-xl">
                 {/* Render suggestion prompts and pass the click handler */}

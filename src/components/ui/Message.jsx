@@ -2,14 +2,14 @@
 import React from "react";
 import ReactMarkdown from 'react-markdown';
 
-const Message = ({ text, sender, theme }) => { // Receive theme prop
+const Message = ({ text, sender, theme }) => {
     const isDarkTheme = theme === 'dark';
     return (
         <div
-            className={`max-w-[85%] break-words rounded-lg p-3 mb-2 shadow-sm ${
+            className={`max-w-[85%] break-words rounded-lg p-3 mb-3 shadow-sm ${ // Changed mb-2 to mb-3 for more spacing
                 sender === "user"
                     ? "ml-auto bg-blue-600 text-white"
-                    : `${isDarkTheme ? "mr-auto bg-gray-800 text-gray-200" : "mr-auto bg-gray-100 text-gray-800"} prose prose-sm prose-neutral max-w-none` // Theme bot message bubble
+                    : `${isDarkTheme ? "mr-auto bg-gray-800 text-gray-200" : "mr-auto bg-gray-100 text-gray-800"} prose prose-sm prose-neutral max-w-none`
             }`}
         >
             {sender === "bot" ? (

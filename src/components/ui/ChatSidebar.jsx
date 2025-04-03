@@ -1,12 +1,9 @@
 // src/components/ui/ChatSidebar.jsx
-import React, { useState } from 'react';
-import { LayoutGrid, MessageSquare, Bot, Plus, Settings, LogIn, ChevronUp, ChevronDown, GripHorizontal, Home, Trash2, BookOpen, GraduationCap, Rocket } from 'lucide-react'; // Added more icons
+import React from 'react';
+import { Plus, LogIn, GripHorizontal, Home, Trash2, BookOpen, GraduationCap, Rocket } from 'lucide-react';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate
 
-const ChatSidebar = ({ setLevel, selectedLevel, theme }) => { // Receive theme prop
-    const [utilitiesOpen, setUtilitiesOpen] = useState(false);
-    const [chats, setChats] = useState(['Chat 1', 'Chat 2']); // Example chats - will be dynamic later
-    const [isLoggedIn, setIsLoggedIn] = useState(false); // Example login state
+const ChatSidebar = ({ setLevel, selectedLevel, theme, chats, setChats, isLoggedIn, setIsLoggedIn }) => { // Receive chats, setChats, isLoggedIn, setIsLoggedIn props
     const navigate = useNavigate(); // Get navigate instance
 
     const handleNewChat = () => {
@@ -16,13 +13,13 @@ const ChatSidebar = ({ setLevel, selectedLevel, theme }) => { // Receive theme p
         }
         const newChatName = `Chat ${chats.length + 1}`; // Simple naming for now
         setChats([...chats, newChatName]);
-        // In a real app, you would also initiate a new chat session and store it.
+        // In a real app, you would also initiate a new chat session and store it in local storage or backend.
     };
 
     const handleDeleteChat = (indexToDelete) => {
         const updatedChats = chats.filter((_, index) => index !== indexToDelete);
         setChats(updatedChats);
-        // In a real app, you would also delete the chat session from storage.
+        // In a real app, you would also delete the chat session from local storage or backend.
     };
 
     const isDarkTheme = theme === 'dark'; // Helper for dark theme
@@ -30,7 +27,8 @@ const ChatSidebar = ({ setLevel, selectedLevel, theme }) => { // Receive theme p
     return (
         <aside className={`flex h-full w-64 flex-shrink-0 flex-col border-r border-gray-200 ${isDarkTheme ? 'bg-gray-800 text-white border-gray-700' : 'bg-white text-gray-800'}`}> {/* Theme sidebar background and text */}
             {/* Header - Link to Home */}
-            <a href="/" className="block px-4 py-3 text-lg font-semibold">
+            <a href="/" className="flex items-center px-4 py-3 text-lg font-semibold">
+                <Home size={20} className="mr-2" /> {/* Home Icon */}
                 FInTech.ai
             </a>
 
@@ -78,7 +76,7 @@ const ChatSidebar = ({ setLevel, selectedLevel, theme }) => { // Receive theme p
                 )}
                 {/* Chat List */}
                 <div>
-                    {chats.map((chat, index) => (
+                    {isLoggedIn && chats.map((chat, index) => ( // Conditionally render chats based on login
                         <div key={index} className="relative"> {/* Relative positioning for delete button */}
                             <a
                                 href="#" // Replace with actual chat link/functionality
@@ -125,21 +123,6 @@ const ChatSidebar = ({ setLevel, selectedLevel, theme }) => { // Receive theme p
 
             {/* Bottom Section */}
             <div className="mt-auto border-t border-gray-200 p-4" style={{ borderTopColor: isDarkTheme ? '#4B5563' : '#D1D5DB' }}> {/* Theme border */}
-                <button
-                    onClick={() => setUtilitiesOpen(!utilitiesOpen)}
-                    className={`mb-3 flex w-full items-center justify-between rounded-md px-3 py-2 text-sm ${isDarkTheme ? 'text-gray-400 hover:bg-gray-700 hover:text-white' : 'text-gray-600 hover:bg-gray-100 hover:text-gray-800'}`} // Theme utilities button
-                >
-                    <span className="flex items-center">
-                        <Settings size={16} className="mr-2" /> Utilities
-                    </span>
-                    {utilitiesOpen ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
-                </button>
-                {utilitiesOpen && (
-                    <div className="pl-5 text-sm mb-2">
-                        {/* Theme toggle moved to sidebar utilities - now in ChatbotPage */}
-                    </div>
-                )}
-
                 <button className="w-full rounded-md bg-indigo-600 px-3 py-2 text-sm font-medium text-white hover:bg-indigo-700">
                     Upgrade
                 </button>

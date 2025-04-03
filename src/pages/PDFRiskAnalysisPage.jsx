@@ -1,3 +1,4 @@
+// PDFRiskAnalysisPage.jsx
 import React from 'react';
 import RiskAnalysisResults from '../features/pdfRiskAnalysis/RiskAnalysisResults';
 import LoadingWrapper from '../components/ui/LoadingWrapper';
@@ -144,7 +145,7 @@ const PDFRiskAnalysisPage = () => {
                             </div>
                         </div>
                         <div className="flex-1 p-6 lg:p-8 bg-white">
-                            <div className="bg-gray-50 p-6 rounded-md shadow-inner h-full flex flex-col justify-start">
+                            <div className="bg-gray-50 p-6 rounded-md shadow-inner h-full flex flex-col justify-start" style={{ maxHeight: '600px', overflowY: 'auto' }}> {/* ADDED: inline styles for maxHeight and overflowY */}
                                 <h3 className="text-2xl font-semibold text-gray-700 mb-6 border-b pb-3">Analysis Results</h3>
                                 <div className="overflow-auto">
                                     <RiskAnalysisResults analysisResults={analysisResults} />

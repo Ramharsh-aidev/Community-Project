@@ -25,9 +25,12 @@ const PDFRiskAnalysisPage = () => {
             const formData = new FormData();
             formData.append('pdfFile', file);
 
-            const response = await fetch('/api/pdf-risk-analysis', {
+            const response = await fetch('http://127.0.0.1:8000/api/pdf-risk-analysis/', {  // Ensure full URL
                 method: 'POST',
                 body: formData,
+                headers: {
+                    // No need to set Content-Type; fetch automatically sets it for FormData
+                }
             });
 
             if (!response.ok) {

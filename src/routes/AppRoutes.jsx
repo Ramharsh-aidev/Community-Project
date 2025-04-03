@@ -8,7 +8,7 @@ import FinancialQuestionResolverPage from "../pages/ChatbotPage"; // Assuming pa
 // import ShareDataAnalysisPage from '../features/chatAI/pages/ShareDataAnalysisPage';
 // import LiveShareTrackingPage from '../features/dataAnalysis/pages/LiveShareTrackingPage';
 import PDFRiskAnalysisPage from '../pages/PDFRiskAnalysisPage';
-// import BudgetPlannerPage from '../features/budgetPlanner/pages/BudgetPlannerPage';
+import BudgetPlannerPage from '../pages/budgetPlannerPage';
 import TermsAndConditionsPage from "../pages/TermsAndConditionsPage";
 import AboutPage from "../pages/AboutUs";
 import PrivacyPolicyPage from "../pages/PrivacyPolicyPage";
@@ -54,7 +54,7 @@ function AppRoutes() {
         element={<PDFRiskAnalysisPage />}
       />
 
-                {/* Protected Routes - Budget Planner, Data Analysis, PDF Risk Analysis are PROTECTED */}
+                {/* Protected Routes - Data Analysis, PDF Risk Analysis are PROTECTED */}
 
       {/* <Route path="/share-analysis" element={
                     <ProtectedRoute>
@@ -67,11 +67,9 @@ function AppRoutes() {
                     </ProtectedRoute>
                 } /> */}
 
-                {/* <Route path="/budget-planner" element={
-                    <ProtectedRoute>
-                        <BudgetPlannerPage />
-                    </ProtectedRoute>
-                } /> */}
+      <Route path="/budget-planner" element={
+          <BudgetPlannerPage />
+      } />
 
       {/* You can add more routes here as needed */}
     </Routes>

@@ -1,6 +1,6 @@
 // src/pages/budgetPlanner.jsx
 import React, { useState, useEffect } from 'react';
-import Header from '../components/layout/Header'; // Updated import path
+import Header from '../components/layout/Navbar'; // Updated import path
 import Footer from '../components/layout/Footer'; // Updated import path
 import BudgetInputForm from '../features/budgetPlanner/BudgetInputForm';
 import BudgetReport from '../features/budgetPlanner/BudgetReport';

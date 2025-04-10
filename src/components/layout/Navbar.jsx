@@ -95,12 +95,6 @@ function Navbar() {
                             <Link to="/financial-advice" className="block px-4 py-2 text-gray-700 hover:bg-gray-100 hover:text-blue-600 cursor-pointer flex items-center space-x-2 transition-colors duration-300" onClick={closeDropdown}>
                                 <QuestionMarkCircleIcon className="h-5 w-5 text-gray-500" /> <span>Financial Advice</span>
                             </Link>
-                            <Link to="/share-analysis" className="block px-4 py-2 text-gray-700 hover:bg-gray-100 hover:text-blue-600 cursor-pointer flex items-center space-x-2 transition-colors duration-300" onClick={closeDropdown}>
-                                <ChartBarSquareIcon className="h-5 w-5 text-gray-500" /> <span>Share Analysis</span>
-                             </Link>
-                            <Link to="/live-tracking" className="block px-4 py-2 text-gray-700 hover:bg-gray-100 hover:text-blue-600 cursor-pointer flex items-center space-x-2 transition-colors duration-300" onClick={closeDropdown}>
-                                <MagnifyingGlassIcon className="h-5 w-5 text-gray-500" /> <span>Live Tracking</span>
-                            </Link>
                             <Link to="/pdf-risk-analysis" className="block px-4 py-2 text-gray-700 hover:bg-gray-100 hover:text-blue-600 cursor-pointer flex items-center space-x-2 transition-colors duration-300" onClick={closeDropdown}>
                                 <DocumentChartBarIcon className="h-5 w-5 text-gray-500" /> <span>PDF Risk Analysis</span>
                             </Link>

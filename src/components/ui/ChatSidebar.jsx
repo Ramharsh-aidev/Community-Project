@@ -1,71 +1,107 @@
 // src/components/ui/ChatSidebar.jsx
 import React from 'react';
-import { Plus, LogIn, GripHorizontal, Home, Trash2, BookOpen, GraduationCap, Rocket, X } from 'lucide-react'; // Imported X for close icon
-import { useNavigate } from 'react-router-dom'; // Import useNavigate
+import { Plus, LogIn, GripHorizontal, Home, Trash2, BookOpen, GraduationCap, Rocket, X } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
-const ChatSidebar = ({ setLevel, selectedLevel, theme, chats, setChats, isLoggedIn, setIsLoggedIn, openPricingDialog, onMobileCloseSidebar }) => { // Added onMobileCloseSidebar prop
-    const navigate = useNavigate(); // Get navigate instance
+const ChatSidebar = ({ setLevel, selectedLevel, theme, chats, setChats, isLoggedIn, setIsLoggedIn, openPricingDialog, onMobileCloseSidebar }) => {
+    const navigate = useNavigate();
+    const isDarkTheme = theme === 'dark';
 
     const handleNewChat = () => {
         if (!isLoggedIn) {
-            alert("Please sign in to save and manage chats."); // Or use a more elegant UI notification
+            alert("Please sign in to save and manage chats.");
             return;
         }
-        const newChatName = `Chat ${chats.length + 1}`; // Simple naming for now
+        const newChatName = `Chat ${chats.length + 1}`;
         setChats([...chats, newChatName]);
         // In a real app, you would also initiate a new chat session and store it in local storage or backend.
+        console.log("New chat added:", newChatName); // For debugging and feedback
     };
 
     const handleDeleteChat = (indexToDelete) => {
+        const chatToDelete = chats[indexToDelete];
         const updatedChats = chats.filter((_, index) => index !== indexToDelete);
         setChats(updatedChats);
         // In a real app, you would also delete the chat session from local storage or backend.
+        console.log("Chat deleted:", chatToDelete); // For debugging and feedback
     };
 
-    const isDarkTheme = theme === 'dark'; // Helper for dark theme
+    const handleSignIn = () => {
+        navigate('/signin'); // Redirect to sign-in page
+        console.log("Navigating to sign-in page"); // For debugging and feedback
+    };
+
+    const handleSignOut = () => {
+        setIsLoggedIn(false); // Example logout action
+        setChats([]); // Clear chats on sign out for this example - adjust as needed
+        console.log("User signed out"); // For debugging and feedback
+    };
+
+    const handleUpgradeClick = () => {
+        openPricingDialog();
+        console.log("Upgrade button clicked"); // For debugging and feedback
+    };
+
+    const handleHomeClick = () => {
+        navigate('/'); // Navigate to home page
+        console.log("Navigating to home page"); // For debugging and feedback
+    };
+
+    const handleLevelChange = (level) => {
+        setLevel(level);
+        console.log("Level changed to:", level); // For debugging and feedback
+    };
+
+    const handleMobileSidebarClose = () => {
+        if (onMobileCloseSidebar) {
+            onMobileCloseSidebar();
+            console.log("Mobile sidebar close button clicked"); // For debugging and feedback
+        }
+    };
+
 
     return (
-        <aside className={`flex h-full w-64 flex-shrink-0 flex-col border-r border-gray-200 ${isDarkTheme ? 'bg-gray-800 text-white border-gray-700' : 'bg-white text-gray-800'}`}> {/* Theme sidebar background and text */}
+        <aside className={`flex h-full w-64 flex-shrink-0 flex-col border-r border-gray-200 ${isDarkTheme ? 'bg-gray-800 text-white border-gray-700' : 'bg-white text-gray-800'}`}>
             {/* Sidebar Header - Home Link and Close Button for Mobile */}
             <div className="flex items-center justify-between px-4 py-3">
-                <a href="/" className="flex items-center text-lg font-semibold">
-                    <Home size={20} className="mr-2" /> {/* Home Icon */}
+                <a href="/" className="flex items-center text-lg font-semibold" onClick={handleHomeClick}>
+                    <Home size={20} className="mr-2" />
                     FInTech.ai
                 </a>
                 <button
-                    onClick={onMobileCloseSidebar} // Call the function to close sidebar
-                    className="sm:hidden" // Hidden on small screens and up
+                    onClick={handleMobileSidebarClose}
+                    className="sm:hidden"
                     aria-label="Close Sidebar"
                 >
-                    <X size={20} className={`${isDarkTheme ? 'text-gray-400 hover:text-white' : 'text-gray-500 hover:text-gray-800'}`} /> {/* Close Icon - X */}
+                    <X size={20} className={`${isDarkTheme ? 'text-gray-400 hover:text-white' : 'text-gray-500 hover:text-gray-800'}`} />
                 </button>
             </div>
 
             {/* Navigation - User Levels */}
             <nav className="px-2 py-2">
                 <NavItem
-                    icon={<BookOpen size={18} />} // Changed icon to BookOpen for Basic
+                    icon={<BookOpen size={18} />}
                     text="Basic"
                     level="basic"
-                    setLevel={setLevel}
+                    setLevel={handleLevelChange}
                     isActive={selectedLevel === 'basic'}
-                    theme={theme} // Pass theme prop
+                    theme={theme}
                 />
                 <NavItem
-                    icon={<GraduationCap size={18} />} // Changed icon to GraduationCap for Intermediate
+                    icon={<GraduationCap size={18} />}
                     text="Intermediate"
                     level="intermediate"
-                    setLevel={setLevel}
+                    setLevel={handleLevelChange}
                     isActive={selectedLevel === 'intermediate'}
-                    theme={theme} // Pass theme prop
+                    theme={theme}
                 />
                 <NavItem
-                    icon={<Rocket size={18} />} // Changed icon to Rocket for Advanced
+                    icon={<Rocket size={18} />}
                     text="Advanced"
                     level="advanced"
-                    setLevel={setLevel}
+                    setLevel={handleLevelChange}
                     isActive={selectedLevel === 'advanced'}
-                    theme={theme} // Pass theme prop
+                    theme={theme}
                 />
             </nav>
 
@@ -74,22 +110,22 @@ const ChatSidebar = ({ setLevel, selectedLevel, theme, chats, setChats, isLogged
                 <div className="mb-2 flex items-center justify-between">
                     <span className="text-xs font-medium uppercase text-gray-500">Chats</span>
                     <div className="flex items-center space-x-2 text-gray-500">
-                        <Plus size={16} className="cursor-pointer hover:text-gray-700" onClick={handleNewChat} />
-                        <GripHorizontal size={16} className="cursor-pointer hover:text-gray-700" />
+                        <Plus size={16} className="cursor-pointer hover:text-gray-700" onClick={handleNewChat} aria-label="New Chat" />
+                        <GripHorizontal size={16} className="cursor-pointer hover:text-gray-700" aria-label="Reorder Chats" /> {/* Add aria-label for accessibility */}
                     </div>
                 </div>
                 {!isLoggedIn && (
-                    <div className={`mb-4 rounded-md p-3 text-center text-sm ${isDarkTheme ? 'bg-gray-700 text-gray-400' : 'bg-gray-50 text-gray-600'}`}> {/* Theme login message */}
+                    <div className={`mb-4 rounded-md p-3 text-center text-sm ${isDarkTheme ? 'bg-gray-700 text-gray-400' : 'bg-gray-50 text-gray-600'}`}>
                         Login to save and revisit previous chats!
                     </div>
                 )}
                 {/* Chat List */}
                 <div>
-                    {isLoggedIn && chats.map((chat, index) => ( // Conditionally render chats based on login
-                        <div key={index} className="relative"> {/* Relative positioning for delete button */}
+                    {isLoggedIn && chats.map((chat, index) => (
+                        <div key={index} className="relative">
                             <a
                                 href="#" // Replace with actual chat link/functionality
-                                className={`block mb-1 rounded-md px-3 py-2 pr-8 text-sm ${isDarkTheme ? 'text-gray-400 hover:bg-gray-700 hover:text-white' : 'text-gray-600 hover:bg-gray-100 hover:text-gray-800'}`} // Theme chat list item
+                                className={`block mb-1 rounded-md px-3 py-2 pr-8 text-sm ${isDarkTheme ? 'text-gray-400 hover:bg-gray-700 hover:text-white' : 'text-gray-600 hover:bg-gray-100 hover:text-gray-800'}`}
                             >
                                 {chat}
                             </a>
@@ -102,15 +138,20 @@ const ChatSidebar = ({ setLevel, selectedLevel, theme, chats, setChats, isLogged
                             </button>
                         </div>
                     ))}
+                    {isLoggedIn && chats.length === 0 && ( // Display message when no chats and logged in
+                        <div className={`mb-4 rounded-md p-3 text-center text-sm ${isDarkTheme ? 'bg-gray-700 text-gray-400' : 'bg-gray-50 text-gray-600'}`}>
+                            No chats yet. Start a new chat!
+                        </div>
+                    )}
                 </div>
             </div>
 
-            {/* Sign In Button */}
+            {/* Sign In/Out Button */}
             {!isLoggedIn && (
                 <div className="px-4 mb-4">
                     <button
-                        className={`flex w-full items-center justify-center rounded-md px-3 py-2 text-sm font-medium ${isDarkTheme ? 'bg-gray-700 text-white hover:bg-gray-600' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'}`} // Theme sign-in button
-                        onClick={() => navigate('/signin')} // Redirect to sign-in page
+                        className={`flex w-full items-center justify-center rounded-md px-3 py-2 text-sm font-medium ${isDarkTheme ? 'bg-gray-700 text-white hover:bg-gray-600' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'}`}
+                        onClick={handleSignIn}
                     >
                         <LogIn size={16} className="mr-2" />
                         Sign in
@@ -120,21 +161,21 @@ const ChatSidebar = ({ setLevel, selectedLevel, theme, chats, setChats, isLogged
             {isLoggedIn && (
                 <div className="px-4 mb-4">
                     <button
-                        className={`flex w-full items-center justify-center rounded-md px-3 py-2 text-sm font-medium ${isDarkTheme ? 'bg-gray-700 text-white hover:bg-gray-600' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'}`} // Theme sign-out button
-                        onClick={() => setIsLoggedIn(false)} // Example logout toggle
+                        className={`flex w-full items-center justify-center rounded-md px-3 py-2 text-sm font-medium ${isDarkTheme ? 'bg-gray-700 text-white hover:bg-gray-600' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'}`}
+                        onClick={handleSignOut}
                     >
-                        <LogIn size={16} className="mr-2 rotate-180" /> {/* Rotate icon for sign out */}
+                        <LogIn size={16} className="mr-2 rotate-180" />
                         Sign out
                     </button>
                 </div>
             )}
 
 
-            {/* Bottom Section */}
-            <div className="mt-auto border-t border-gray-200 p-4" style={{ borderTopColor: isDarkTheme ? '#4B5563' : '#D1D5DB' }}> {/* Theme border */}
+            {/* Bottom Section - Upgrade Button */}
+            <div className="mt-auto border-t border-gray-200 p-4" style={{ borderTopColor: isDarkTheme ? '#4B5563' : '#D1D5DB' }}>
                 <button
                     className="w-full rounded-md bg-indigo-600 px-3 py-2 text-sm font-medium text-white hover:bg-indigo-700"
-                    onClick={openPricingDialog} // Call openPricingDialog on click
+                    onClick={handleUpgradeClick}
                 >
                     Upgrade
                 </button>
@@ -144,13 +185,18 @@ const ChatSidebar = ({ setLevel, selectedLevel, theme, chats, setChats, isLogged
 };
 
 // Helper component for Navigation items
-const NavItem = ({ icon, text, level, setLevel, isActive, theme }) => { // Receive isActive and theme props
+const NavItem = ({ icon, text, level, setLevel, isActive, theme }) => {
     const isDarkTheme = theme === 'dark';
+    const handleClick = () => {
+        setLevel(level);
+    };
+
     return (
         <a
             href="#"
-            className={`mb-1 flex items-center rounded-md px-3 py-2 text-sm ${isDarkTheme ? 'text-gray-400 hover:bg-gray-700 hover:text-white' : 'text-gray-600 hover:bg-gray-100 hover:text-gray-800'} ${isActive ? (isDarkTheme ? 'bg-gray-700 text-white' : 'bg-gray-100 text-gray-800') : ''}`} // Active state styling - theme aware
-            onClick={() => setLevel(level)}
+            className={`mb-1 flex items-center rounded-md px-3 py-2 text-sm ${isDarkTheme ? 'text-gray-400 hover:bg-gray-700 hover:text-white' : 'text-gray-600 hover:bg-gray-100 hover:text-gray-800'} ${isActive ? (isDarkTheme ? 'bg-gray-700 text-white' : 'bg-gray-100 text-gray-800') : ''}`}
+            onClick={handleClick}
+            aria-current={isActive ? "page" : undefined} // For accessibility - indicate current page
         >
             <span className="mr-3">{icon}</span>
             {text}

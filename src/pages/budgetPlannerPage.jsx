@@ -11,6 +11,7 @@ const BudgetPlannerPage = () => {
   const [monthlyIncome, setMonthlyIncome] = useState('');
   const [expenses, setExpenses] = useState('');
   const [goals, setGoals] = useState('');
+  const [language, setLanguage] = useState('en-IN'); // Default language is English (India)
   const [loading, setLoading] = useState(false);
   const [report, setReport] = useState('');
   const [error, setError] = useState('');
@@ -55,11 +56,12 @@ const BudgetPlannerPage = () => {
         throw new Error("Invalid monthly income. Please enter a non-negative number.");
       }
 
-      const prompt = `As a financial advisor, create a detailed and personalized budget plan based on the following information:
+      const prompt = `As a financial advisor, create a detailed and personalized budget plan based on the following information use only indian currency that is Rupee (₹) and do not US dollars:
 
 Monthly Income: $${incomeNumber} (This is assumed to be after tax unless specified otherwise in expenses/goals)
 Essential Expenses: ${expenses}
 Financial Goals: ${goals}
+Please provide the budget plan in ${language} language.
 
 Please provide a comprehensive analysis and recommendations including:
 
@@ -70,7 +72,7 @@ Please provide a comprehensive analysis and recommendations including:
 5.  **Debt Management (If debt is mentioned):** Recommend a strategy (e.g., snowball, avalanche) with calculated examples if possible based on expense details. Discuss consolidation options if appropriate.
 6.  **Actionable Steps:** Provide a clear, numbered list of 3-5 specific, achievable steps the user can take *this month* to start implementing the plan. Include suggestions for tracking progress (e.g., budgeting apps, spreadsheets).
 
-Format the output clearly using headings (Markdown H2 or H3), bullet points, and **bold text** for key figures and recommendations. Ensure advice is realistic for the provided income and expenses. Conclude with a brief, encouraging sentence.`;
+ Format the output clearly using headings (Markdown H2 or H3), bullet points, and **bold text** for key figures and recommendations. Ensure advice is realistic for the provided income and expenses. Conclude with a brief, encouraging sentence.`;
 
 
       const aiReport = await generateBudgetReport(prompt);
@@ -123,6 +125,8 @@ Format the output clearly using headings (Markdown H2 or H3), bullet points, and
             setExpenses={setExpenses}
             goals={goals}
             setGoals={setGoals}
+            language={language}
+            setLanguage={setLanguage}
             error={error}
             setError={setError}
             loading={loading}

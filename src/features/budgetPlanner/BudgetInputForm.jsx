@@ -9,8 +9,9 @@ const BudgetInputForm = ({
   setExpenses,
   goals,
   setGoals,
+  language,
+  setLanguage,
   error,
-  setError,
   loading,
   isInitialized,
   generateBudgetPlan,
@@ -26,6 +27,10 @@ const BudgetInputForm = ({
 
   const handleGoalsChange = (e) => {
     setGoals(e.target.value);
+  };
+
+  const handleLanguageChange = (e) => {
+    setLanguage(e.target.value);
   };
 
   return (
@@ -67,7 +72,7 @@ const BudgetInputForm = ({
               onChange={handleExpensesChange}
               className="mt-1 block w-full rounded-md border-gray-300 shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
               rows={4}
-              placeholder="List expenses like: Rent/Mortgage: ₹1200, Groceries: $400, Utilities: ₹150, Car Payment: ₹300, Gas: ₹100, etc."
+              placeholder="List expenses like: Rent/Mortgage: ₹1200, Groceries: ₹400, Utilities: ₹150, Car Payment: ₹300, Gas: ₹100, etc."
               required
               aria-required="true"
             />
@@ -88,6 +93,31 @@ const BudgetInputForm = ({
               required
               aria-required="true"
             />
+          </div>
+          {/* Language Input */}
+          <div>
+            <label htmlFor="language" className="block text-sm font-medium text-gray-700 mb-1">
+              Language for Analysis
+            </label>
+            <select
+              id="language"
+              value={language}
+              onChange={handleLanguageChange}
+              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+            >
+              <option value="en-IN">English (India)</option>
+              <option value="hi-IN">Hindi (India)</option>
+              <option value="gu-IN">Gujarati (India)</option>
+              <option value="es">Spanish</option>
+              <option value="fr">French</option>
+              <option value="de">German</option>
+              <option value="zh">Chinese</option>
+              <option value="ja">Japanese</option>
+              <option value="ru">Russian</option>
+              <option value="ar">Arabic</option>
+              <option value="pt">Portuguese</option>
+              <option value="ko">Korean</option>
+            </select>
           </div>
           {/* Error Display */}
           {error && (

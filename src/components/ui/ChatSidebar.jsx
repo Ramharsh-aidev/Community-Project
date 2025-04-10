@@ -3,7 +3,7 @@ import React from 'react';
 import { Plus, LogIn, GripHorizontal, Home, Trash2, BookOpen, GraduationCap, Rocket, X } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
-const ChatSidebar = ({ setLevel, selectedLevel, theme, chats, setChats, isLoggedIn, setIsLoggedIn, openPricingDialog, onMobileCloseSidebar }) => {
+const ChatSidebar = ({ setLevel, selectedLevel, theme, chats, setChats, isLoggedIn, setIsLoggedIn, openPricingDialog, onMobileCloseSidebar, language, setLanguage }) => { // Added language and setLanguage props
     const navigate = useNavigate();
     const isDarkTheme = theme === 'dark';
 
@@ -59,6 +59,11 @@ const ChatSidebar = ({ setLevel, selectedLevel, theme, chats, setChats, isLogged
         }
     };
 
+    const handleLanguageChange = (e) => {
+        setLanguage(e.target.value);
+        console.log("Language changed to:", e.target.value); // For debugging and feedback
+    };
+
 
     return (
         <aside className={`flex h-full w-64 flex-shrink-0 flex-col border-r border-gray-200 ${isDarkTheme ? 'bg-gray-800 text-white border-gray-700' : 'bg-white text-gray-800'}`}>
@@ -104,6 +109,33 @@ const ChatSidebar = ({ setLevel, selectedLevel, theme, chats, setChats, isLogged
                     theme={theme}
                 />
             </nav>
+
+             {/* Language Selection */}
+             <div className="px-4 py-2">
+                <label htmlFor="chatbotLanguage" className="block text-xs font-medium uppercase text-gray-500 mb-1">
+                    Language
+                </label>
+                <select
+                    id="chatbotLanguage"
+                    value={language}
+                    onChange={handleLanguageChange}
+                    className={`mt-1 block w-full rounded-md border-gray-300 shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm ${isDarkTheme ? 'bg-gray-700 text-white border-gray-600 focus:ring-indigo-500 focus:border-indigo-500' : ''}`}
+                >
+                    <option value="en-IN">English (India)</option>
+                    <option value="hi-IN">Hindi (India)</option>
+                    <option value="gu-IN">Gujarati (India)</option>
+                    <option value="es">Spanish</option>
+                    <option value="fr">French</option>
+                    <option value="de">German</option>
+                    <option value="zh">Chinese</option>
+                    <option value="ja">Japanese</option>
+                    <option value="ru">Russian</option>
+                    <option value="ar">Arabic</option>
+                    <option value="pt">Portuguese</option>
+                    <option value="ko">Korean</option>
+                </select>
+            </div>
+
 
             {/* Chats Section */}
             <div className="mt-4 px-4">

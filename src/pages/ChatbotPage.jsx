@@ -20,8 +20,10 @@ const ChatbotPage = () => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [isSidebarOpen, setIsSidebarOpen] = useState(false); // State for sidebar visibility - initially closed on mobile
     const [isPricingDialogOpen, setIsPricingDialogOpen] = useState(false); // State for pricing dialog
+    const [language, setLanguage] = useState('en-IN'); // Added language state, default to English (India)
 
-    // --- SYSTEM PROMPT --- (No changes)
+
+    // --- SYSTEM PROMPT ---
     const systemPromptBase = `You are a specialized financial advisor chatbot. Your sole purpose is to provide information and answer questions strictly related to finance, investing, economics, stock markets, personal finance management, budgeting, financial planning, insurance, and related financial concepts.
 
 Do NOT answer questions about any other topics, including but not limited to: general knowledge, history, science, celebrities, coding, cooking, creative writing, or personal opinions unrelated to finance.
@@ -30,7 +32,7 @@ If the user asks a question outside of your designated financial domain, you MUS
 
 Do not engage in casual conversation unrelated to finance. Stick strictly to your role as a financial advisor assistant.`;
 
-    const getSystemPrompt = (level) => {
+    const getSystemPrompt = (level, currentLanguage) => {
         let levelInstructions = "";
         if (level === 'intermediate') {
             levelInstructions = ` Provide more detailed explanations and assume the user has some existing financial knowledge. The user level is ${level}.`;
@@ -39,7 +41,7 @@ Do not engage in casual conversation unrelated to finance. Stick strictly to you
         } else {
             levelInstructions = ` Provide simple and easy-to-understand explanations suitable for beginners in finance. Avoid complex jargon. The user level is ${level}.`;
         }
-        return systemPromptBase + levelInstructions;
+        return systemPromptBase + levelInstructions + ` Please respond in ${currentLanguage} language.`;
     };
     // --- END SYSTEM PROMPT ---
 
@@ -77,7 +79,7 @@ Do not engage in casual conversation unrelated to finance. Stick strictly to you
         setIsLoading(true);
 
 
-        const currentSystemPrompt = getSystemPrompt(userLevel);
+        const currentSystemPrompt = getSystemPrompt(userLevel, language);
         const fullPrompt = `${currentSystemPrompt}\n\nUser Question: ${messageText}\n\nAnswer:`;
 
 
@@ -167,6 +169,8 @@ Do not engage in casual conversation unrelated to finance. Stick strictly to you
                     clearChatHistory={handleClearChatHistory}
                     openPricingDialog={openPricingDialog} // Pass openPricingDialog function
                     onMobileCloseSidebar={toggleSidebar} // Pass function to close sidebar from mobile
+                    language={language} // Pass language state
+                    setLanguage={setLanguage} // Pass setLanguage function
                 />
             </div>
             <div className="flex flex-1 flex-col">

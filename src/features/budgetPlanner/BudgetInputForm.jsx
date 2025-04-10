@@ -1,6 +1,6 @@
 // src/features/budgetPlanner/BudgetInputForm.jsx
 import React from 'react';
-import { DollarSign } from 'lucide-react';
+import { IndianRupee  } from 'lucide-react';
 
 const BudgetInputForm = ({
   monthlyIncome,
@@ -40,7 +40,7 @@ const BudgetInputForm = ({
             </label>
             <div className="relative mt-1">
               <span className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <DollarSign className="w-5 h-5 text-gray-400" aria-hidden="true" />
+                <IndianRupee className="w-5 h-5 text-gray-400" aria-hidden="true" />
               </span>
               <input
                 type="number"
@@ -67,7 +67,7 @@ const BudgetInputForm = ({
               onChange={handleExpensesChange}
               className="mt-1 block w-full rounded-md border-gray-300 shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
               rows={4}
-              placeholder="List expenses like: Rent/Mortgage: $1200, Groceries: $400, Utilities: $150, Car Payment: $300, Gas: $100, etc."
+              placeholder="List expenses like: Rent/Mortgage: ₹1200, Groceries: $400, Utilities: ₹150, Car Payment: ₹300, Gas: ₹100, etc."
               required
               aria-required="true"
             />
@@ -84,7 +84,7 @@ const BudgetInputForm = ({
               onChange={handleGoalsChange}
               className="mt-1 block w-full rounded-md border-gray-300 shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
               rows={4}
-              placeholder="e.g., Build a $5000 emergency fund in 6 months, Save $10000 for a house down payment in 2 years, Pay off $3000 credit card debt, Start investing for retirement."
+              placeholder="e.g., Build a ₹5000 emergency fund in 6 months, Save ₹10000 for a house down payment in 2 years, Pay off ₹3000 credit card debt, Start investing for retirement."
               required
               aria-required="true"
             />

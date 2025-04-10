@@ -18,6 +18,7 @@ dist-ssr
 .idea
 .env
 .DS_Store
+PricingDialog.jsx
 *.suo
 *.ntvs*
 *.njsproj

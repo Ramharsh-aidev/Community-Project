@@ -1,9 +1,9 @@
 // src/components/ui/ChatSidebar.jsx
 import React from 'react';
-import { Plus, LogIn, GripHorizontal, Home, Trash2, BookOpen, GraduationCap, Rocket } from 'lucide-react';
+import { Plus, LogIn, GripHorizontal, Home, Trash2, BookOpen, GraduationCap, Rocket, X } from 'lucide-react'; // Imported X for close icon
 import { useNavigate } from 'react-router-dom'; // Import useNavigate
 
-const ChatSidebar = ({ setLevel, selectedLevel, theme, chats, setChats, isLoggedIn, setIsLoggedIn }) => { // Receive chats, setChats, isLoggedIn, setIsLoggedIn props
+const ChatSidebar = ({ setLevel, selectedLevel, theme, chats, setChats, isLoggedIn, setIsLoggedIn, openPricingDialog, onMobileCloseSidebar }) => { // Added onMobileCloseSidebar prop
     const navigate = useNavigate(); // Get navigate instance
 
     const handleNewChat = () => {
@@ -26,11 +26,20 @@ const ChatSidebar = ({ setLevel, selectedLevel, theme, chats, setChats, isLogged
 
     return (
         <aside className={`flex h-full w-64 flex-shrink-0 flex-col border-r border-gray-200 ${isDarkTheme ? 'bg-gray-800 text-white border-gray-700' : 'bg-white text-gray-800'}`}> {/* Theme sidebar background and text */}
-            {/* Header - Link to Home */}
-            <a href="/" className="flex items-center px-4 py-3 text-lg font-semibold">
-                <Home size={20} className="mr-2" /> {/* Home Icon */}
-                FInTech.ai
-            </a>
+            {/* Sidebar Header - Home Link and Close Button for Mobile */}
+            <div className="flex items-center justify-between px-4 py-3">
+                <a href="/" className="flex items-center text-lg font-semibold">
+                    <Home size={20} className="mr-2" /> {/* Home Icon */}
+                    FInTech.ai
+                </a>
+                <button
+                    onClick={onMobileCloseSidebar} // Call the function to close sidebar
+                    className="sm:hidden" // Hidden on small screens and up
+                    aria-label="Close Sidebar"
+                >
+                    <X size={20} className={`${isDarkTheme ? 'text-gray-400 hover:text-white' : 'text-gray-500 hover:text-gray-800'}`} /> {/* Close Icon - X */}
+                </button>
+            </div>
 
             {/* Navigation - User Levels */}
             <nav className="px-2 py-2">
@@ -123,7 +132,10 @@ const ChatSidebar = ({ setLevel, selectedLevel, theme, chats, setChats, isLogged
 
             {/* Bottom Section */}
             <div className="mt-auto border-t border-gray-200 p-4" style={{ borderTopColor: isDarkTheme ? '#4B5563' : '#D1D5DB' }}> {/* Theme border */}
-                <button className="w-full rounded-md bg-indigo-600 px-3 py-2 text-sm font-medium text-white hover:bg-indigo-700">
+                <button
+                    className="w-full rounded-md bg-indigo-600 px-3 py-2 text-sm font-medium text-white hover:bg-indigo-700"
+                    onClick={openPricingDialog} // Call openPricingDialog on click
+                >
                     Upgrade
                 </button>
             </div>

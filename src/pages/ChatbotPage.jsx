@@ -4,9 +4,10 @@ import ChatSidebar from '../components/ui/ChatSidebar';
 import ChatInput from '../components/layout/ChatInput';
 import Message from '../components/ui/Message';
 import SuggestionPrompts from '../components/ui/SuggestionPrompts';
-import { SquarePen, ChevronDown, Lock, Sun, Moon, Settings } from 'lucide-react';
+import { SquarePen, ChevronDown, Lock, Sun, Moon, Settings, Menu } from 'lucide-react'; // Imported Menu icon
 import { generateContent } from "../features/chatAI/GeminiAPI";
 import { BeatLoader } from "react-spinners";
+import PricingDialog from '../components/ui/PricingDialog'; // Import PricingDialog
 
 const ChatbotPage = () => {
     const [messages, setMessages] = useState([]);
@@ -17,6 +18,8 @@ const ChatbotPage = () => {
     const [utilitiesOpen, setUtilitiesOpen] = useState(false);
     const [chats, setChats] = useState([]);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [isSidebarOpen, setIsSidebarOpen] = useState(false); // State for sidebar visibility - initially closed on mobile
+    const [isPricingDialogOpen, setIsPricingDialogOpen] = useState(false); // State for pricing dialog
 
     // --- SYSTEM PROMPT --- (No changes)
     const systemPromptBase = `You are a specialized financial advisor chatbot. Your sole purpose is to provide information and answer questions strictly related to finance, investing, economics, stock markets, personal finance management, budgeting, financial planning, insurance, and related financial concepts.
@@ -127,6 +130,18 @@ Do not engage in casual conversation unrelated to finance. Stick strictly to you
         URL.revokeObjectURL(url);
     };
 
+    const toggleSidebar = () => {
+        setIsSidebarOpen(!isSidebarOpen);
+    };
+
+    const openPricingDialog = () => {
+        setIsPricingDialogOpen(true);
+    };
+
+    const closePricingDialog = () => {
+        setIsPricingDialogOpen(false);
+    };
+
 
     const prompts = [
         'What is the difference between stocks and bonds?',
@@ -139,20 +154,32 @@ Do not engage in casual conversation unrelated to finance. Stick strictly to you
 
     return (
         <div className={`flex h-screen overflow-hidden ${isDarkTheme ? 'bg-gray-900 text-white' : 'bg-white'}`}>
-            <ChatSidebar
-                setLevel={handleSetLevel}
-                selectedLevel={userLevel}
-                theme={theme}
-                chats={chats}
-                setChats={setChats}
-                isLoggedIn={isLoggedIn}
-                setIsLoggedIn={setIsLoggedIn}
-                clearChatHistory={handleClearChatHistory} // Pass handleClearChatHistory
-            />
+            {/* Sidebar */}
+            <div className={`${isSidebarOpen ? 'block' : 'hidden'} sm:block w-64 flex-shrink-0 h-screen`}> {/* Sidebar is hidden on small screens, visible on sm and up */}
+                <ChatSidebar
+                    setLevel={handleSetLevel}
+                    selectedLevel={userLevel}
+                    theme={theme}
+                    chats={chats}
+                    setChats={setChats}
+                    isLoggedIn={isLoggedIn}
+                    setIsLoggedIn={setIsLoggedIn}
+                    clearChatHistory={handleClearChatHistory}
+                    openPricingDialog={openPricingDialog} // Pass openPricingDialog function
+                    onMobileCloseSidebar={toggleSidebar} // Pass function to close sidebar from mobile
+                />
+            </div>
             <div className="flex flex-1 flex-col">
                 {/* Top Bar */}
                 <div className={`flex h-[55px] flex-shrink-0 items-center justify-between border-b ${isDarkTheme ? 'border-gray-700' : 'border-gray-200'} px-4 ${isDarkTheme ? 'bg-gray-800' : 'bg-white'}`}>
                     <div className="flex items-center">
+                        {/* Hamburger Menu - Visible on smaller screens */}
+                        <button
+                            onClick={toggleSidebar}
+                            className="sm:hidden mr-4" // Hidden on small screens and up, visible below sm
+                        >
+                            <Menu className={`h-5 w-5 cursor-pointer ${isDarkTheme ? 'text-gray-400' : 'text-gray-500'}`} />
+                        </button>
                         <SquarePen className={`mr-4 h-5 w-5 cursor-pointer ${isDarkTheme ? 'text-gray-400' : 'text-gray-500'}`} />
                         <span className={`mr-1 font-medium ${isDarkTheme ? 'text-gray-300' : 'text-gray-800'}`}>Financial Advisor Chat</span>
                     </div>
@@ -162,8 +189,7 @@ Do not engage in casual conversation unrelated to finance. Stick strictly to you
                             onClick={toggleTheme}
                             className={`flex items-center rounded-md border ${isDarkTheme ? 'border-gray-600 hover:bg-gray-700 text-white' : 'border-gray-300 hover:bg-gray-50 text-gray-700'} px-3 py-1 text-sm`}
                         >
-                            {isDarkTheme ? <Sun className="mr-1.5 h-4 w-4" /> : <Moon className="mr-1.5 h-4 w-4" />}
-                            {isDarkTheme ? 'Dark Mode' : 'Light Mode'}
+                            {isDarkTheme ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
                         </button>
 
                         <div className="relative">
@@ -228,6 +254,11 @@ Do not engage in casual conversation unrelated to finance. Stick strictly to you
                     </p>
                 </div>
             </div>
+
+            {/* Pricing Dialog - Conditionally rendered */}
+            {isPricingDialogOpen && (
+                <PricingDialog onClose={closePricingDialog} theme={theme} />
+            )}
         </div>
     );
 };

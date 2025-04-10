@@ -3,22 +3,22 @@ import React from 'react';
 
 const feedbacks = [
     {
-        name: "Sarah J.",
+        name: "Suresh Dhamnkar",
         title: "Happy Customer",
         feedback: "Financial AI has been a game changer for me. I finally feel in control of my finances and am making real progress towards my goals!",
-        image: "https://th.bing.com/th/id/OIP.ICXy7PBk-4NZTpCUGLY1FAHaLH?w=500&h=750&rs=1&pid=ImgDetMain"
+        image: "https://th.bing.com/th/id/OIP.Ee7pg-0WD9WBjBCeoEhxrwHaLZ?w=810&h=1246&rs=1&pid=ImgDetMain"
     },
     {
-        name: "John D.",
+        name: "Dinesh Kumar",
         title: "Satisfied User",
         feedback: "The AI-powered advice is surprisingly insightful. I've discovered savings I didn't know I could make. Highly recommend!",
-        image: 'https://images.marinelink.com/images/maritime/michael-g-johnson-sea-machines-105903.jpg'
+        image: 'https://th.bing.com/th/id/OIP.ZVPNwiGRP68Ji-RDuCep5QHaHa?w=626&h=626&rs=1&pid=ImgDetMain'
     },
     {
-        name: "Emily K.",
+        name: "Anushka Chaudhary",
         title: "Loyal User",
         feedback: "Easy to use and understand. The spending tracker is fantastic, and the budget planner is helping me stay on track. Great product!",
-        image: "https://www.famousbirthdays.com/headshots/emily-davis-3.jpg"
+        image: "https://th.bing.com/th/id/OIP.bDIlzptISFNENH19DHSwewHaHu?w=783&h=817&rs=1&pid=ImgDetMain"
     }
 ];
 

@@ -28,10 +28,10 @@ function HeroSection() {
             {/* Hero Image - Add your image in public/images folder, or use an external URL */}
             <div className="absolute top-0 right-0 h-full w-1/2 bg-blue-50 bg-opacity-50 hidden md:block" style={{ clipPath: 'polygon(20% 0%, 100% 0%, 100% 100%, 0% 100%)' }}>
                 <img
-                    src="https://www.digitalthakur.com/wp-content/uploads/2022/09/technology-g6b730c8d9_1280-1024x486.jpg" // Path to your image in the public folder (e.g., public/hero-image.png)
+                    src="https://www.kf-finance.si/pic/KF-Finance-Valuation-header.jpg" // Path to your image in the public folder (e.g., public/hero-image.png)
                     alt="Financial AI Illustration"
-                    className="absolute top-1/4 right-1/4 transform translate-x-1/4 -translate-y-1/4 max-h-full max-w-full rounded-lg shadow-xl"
-                    style={{ opacity: 0.8 }}
+                    className="absolute top-1/4 right-1/4 transform translate-x-1/4 -translate-y-1/4 rounded-lg shadow-xl"
+                    style={{ opacity: 0.8, width: '100%', height: '100%', objectFit: 'cover' }} // Added width, height and objectFit
                 />
             </div>
         </section>
@@ -39,3 +39,6 @@ function HeroSection() {
 }
 
 export default HeroSection;
+
+
+// https://www.kf-finance.si/pic/KF-Finance-Valuation-header.jpg

@@ -25,26 +25,23 @@ const PDFRiskAnalysisPage = () => {
         try {
             const formData = new FormData();
             formData.append('pdfFile', file);
-
-            const response = await fetch('http://127.0.0.1:8000/api/pdf-risk-analysis/', {  // Ensure full URL
+        
+            const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/`, {
                 method: 'POST',
                 body: formData,
-                headers: {
-                    // No need to set Content-Type; fetch automatically sets it for FormData
-                }
             });
-
+        
             if (!response.ok) {
                 const errorData = await response.json();
-                throw new Error(`HTTP error! status: ${response.status}, message: ${errorData.message || 'Unknown error'}`);
+                throw new Error(`HTTP error! Status: ${response.status}, Message: ${errorData.message || 'Unknown error'}`);
             }
-
+        
             const data = await response.json();
             setAnalysisResults(data.results);
             setAnalysisSuccess(true);
         } catch (error) {
-            console.error("Analysis Error:", error);
-            setAnalysisError("Failed to analyze PDF. Please try again.");
+            console.error('Analysis Error:', error);
+            setAnalysisError('Failed to analyze PDF. Please try again.');
             setAnalysisSuccess(false);
         } finally {
             setIsAnalyzing(false);
